@@ -6,11 +6,14 @@ namespace model_binder.Models
     [TypeConverter(typeof(TestTypeConverter))]
     public class TestData
     {
-        public List<string> Message { get; set; }
+        //public List<string> Message { get; set; }
+        public IEnumerable<string> Message { get; set; }
 
         public static bool TryParse(string s, out TestData result)
         {
             result = null;
+
+            if (s == null) return false;
 
             var parts = s.Split(',');
             var list = new List<string>();
@@ -20,7 +23,7 @@ namespace model_binder.Models
             }
 
             result = new TestData {Message = list};
-  
+
             return true;
         }
     }
